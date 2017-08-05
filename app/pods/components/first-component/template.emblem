@@ -1,0 +1,3 @@
+.alert.alert-warning.first-component click="toggleThings"
+   |component #
+   = number

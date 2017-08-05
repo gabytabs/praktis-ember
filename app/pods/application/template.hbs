@@ -1,0 +1,18 @@
+<div class="navbar navbar-fixed-top text-center">
+   <div class="app-title">
+      sam and mar's ember app
+      <i class="fa fa-fire"></i>
+   </div>
+</div>
+
+<div class="container body">
+   <div class="col-md-12 text-center">
+      {{#each integers as |integer|}}
+         {{first-component number=integer class="text-center"}}
+      {{/each}}
+   </div>
+
+   {{#each results as |result|}}
+      {{table-component results=result models=models}}
+   {{/each}}
+</div>

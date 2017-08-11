@@ -122,7 +122,7 @@ ApplicationController = Ember.Controller.extend({
           "events": {
             "win": 4634.0,
             "pixel": 41.0,
-            "click": 3.0
+            "click": 3.0,
           }
         },
         "5956c629ffd7ce625b905124": {
@@ -137,7 +137,7 @@ ApplicationController = Ember.Controller.extend({
           "events": {
             "win": 2517.0,
             "pixel": 15.0,
-            "click": 2.0
+            "click": 2.0,
           }
         },
         "5956c629ffd7ce4693903744": {

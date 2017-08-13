@@ -66,7 +66,8 @@ ApplicationController = Ember.Controller.extend({
           "events": {
             "win": 3833.0,
             "pixel": 27.0,
-            "click": 4.0
+            "click": 4.0,
+            "word": 4.2
           }
         },
         "5956c629ffd7ce4691900f55": {
@@ -150,7 +151,8 @@ ApplicationController = Ember.Controller.extend({
           "total_cost": 8.399388,
           "internal_fees": {},
           "events": {
-            "win": 6.0
+            "win": 6.0,
+            "word": 3.2
           }
         },
         "5956c62affd7ce4691900f88": {

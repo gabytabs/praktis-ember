@@ -1,21 +1,21 @@
+
 <table class="table">
   <thead>
     <tr>
-    	<th>count</th>
-    	<th>cost</th>
-    	{{#each eventHeaders as |event|}}
-    	 <th>{{event}}</th>
-    	{{/each}}
+      {{#each headers as |header|}}
+        <th>{{header}}</th>
+      {{/each}}
     </tr>
   </thead>
   <tbody>
-    {{#each transformedColumn as |column|}}
-  	<tr>
+    {{#each tableColumn as |column|}}
+    <tr>
       <td>{{column.count}}</td>
       <td>{{column.cost}}</td>
-      <td>{{column.win}}</td>
-      <td>{{column.pixel}}</td>
-      <td>{{column.click}}</td>
+      <td>{{column.events.win}}</td>
+      <td>{{column.events.pixel}}</td>
+      <td>{{column.events.click}}</td>
+      <td>{{column.events.word}}</td>
     </tr>
     {{/each}}
   </tbody>

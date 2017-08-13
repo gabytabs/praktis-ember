@@ -9,74 +9,56 @@ TableComponentComponent = Ember.Component.extend({
 	},
 
 	//the var
-	eventHeaders: Ember.A(), //Has all the filtered event header
-	allEvents: Ember.A(), //Has all the event objects for headers
-	tableColumn: Ember.A(), //returns all objects from PLACEMENTS w/o the keyId
-	transformedColumn: Ember.A(), // final output
+	headers: Em.A(),
+	tableColumn: Em.A(),
 
 	//the computed
 	placementsData: Ember.computed('results', function(){
 		return this.results.placements
 	}),
-	placementId: Ember.computed('placementsData', function(){
-		return Object.keys(this.get('placementsData'))
-	}),
 
 
-
+	//the observer
 	tableObserver: Ember.observer('placementsData', function() {
-		//TEST 1
-		console.log(this.get('placementId'));
-		console.log(this.get('placementsData'));
 
-		// SEND TO AN COLUMN ARRAY
-		for(let i = 0; i < this.get('placementId').length; i++) {
-			// debugger;
-			let column = this.get('placementsData')[this.get('placementId')[i]];
-			this.get('tableColumn').addObject(column);
-			this.get('allEvents').addObject(column.events)
-		};
-		// PUSH KEY TO EVENTHEADERS
-		this.get('allEvents').map(event => {
-			for(let i = 0; i < Object.keys(event).length; i++) {
-				this.get('eventHeaders').addObject(Object.keys(event)[i]);
-			};
-		});
-		//TEST 2
-		console.log(this.get('tableColumn'));
-		console.log(this.get('eventHeaders'));
+		// Variables
+		let placements = this.get('placementsData');
+		let models = this.get('models');
 
-		// PUSH COUNT AND COST TO TRANSFORMED COLUMN
-		this.get('tableColumn').map(column => {
-			let columnOwnObject = {};
-			for(let i = 0; i < Object.keys(column).length; i++){
-				if(Object.keys(column)[i] == "count"){
-					columnOwnObject[[Object.keys(column)[i]]] = column[[Object.keys(column)[i]]];
-				} else if(Object.keys(column)[i] == "cost"){
-					columnOwnObject[[Object.keys(column)[i]]] = column[[Object.keys(column)[i]]];
-				} else if(Object.keys(column)[i] == "events") {
-					for(let e = 0; e < Object.keys(column.events).length; e++){
-						columnOwnObject[Object.keys(column.events)[e]] = column.events[Object.keys(column.events)[e]];
+		// filtering placementsData
+		for(let i = 0; i < Object.keys(placements).length; i++) {
+
+			let tempArr = {};
+
+			if(Object.keys(placements)[i] === models[i].id) {
+
+				let id = Object.keys(placements)[i]
+
+				for(let ii = 0; ii < Object.keys(placements[id]).length; ii++){
+					if(Object.keys(placements[id])[ii] === "count" || Object.keys(placements[id])[ii] === "cost" || Object.keys(placements[id])[ii] === "events" ) {
+						tempArr[Object.keys(placements[id])[ii]] = placements[id][Object.keys(placements[id])[ii]];
 					}
-				};
-			};
-			this.get('transformedColumn').addObject(columnOwnObject);
+				}
+			}
+			this.get('tableColumn').addObject(tempArr)
+		}
+
+		//filtered tablecolumn
+		let filteredColumn = this.get('tableColumn')
+
+		//retriving all keys on table column
+		filteredColumn.map( headers => {
+			for(let i = 0; i < Object.keys(headers).length; i++) {
+				if(Object.keys(headers)[i] !== "events") {
+					this.get('headers').addObject(Object.keys(headers)[i])
+				} else {
+					for (let ii = 0; ii < Object.keys(headers.events).length; ii++) {
+						this.get('headers').addObject(Object.keys(headers.events)[ii])
+					}
+				}
+			}
 		});
-		
-
-
-
-		console.log(this.get('transformedColumn'));
-	}),
+	})
 });
 
 export default TableComponentComponent;
-
-
-	// transformed: Em.computed('placementId', function(){
-	// 	newArray = this.get("placementId").map (placement) function(){
-	// 		key = Object.keys(placmement)[0];
-	// 		data = placement[key];
-	// 		data["id"] = key
-	// 	}
-	// })

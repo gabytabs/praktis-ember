@@ -12,10 +12,9 @@
     <tr>
       <td>{{column.count}}</td>
       <td>{{column.cost}}</td>
-      <td>{{column.events.win}}</td>
-      <td>{{column.events.pixel}}</td>
-      <td>{{column.events.click}}</td>
-      <td>{{column.events.word}}</td>
+      {{#each-in column.events as |title event|}}
+      <td>{{event}}</td>
+      {{/each-in}}
     </tr>
     {{/each}}
   </tbody>
